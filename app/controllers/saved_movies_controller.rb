@@ -1,0 +1,2 @@
+class SavedMoviesController < ApplicationController
+end
