@@ -15,7 +15,7 @@ url = "http://tmdb.lewagon.com/movie/top_rated"
     Movie.create(
       title: movie['title'],
       overview: movie['overview'],
-      poster_url: "#{base_poster_url}#{movie['poster_path']}",
+      poster_url: "#{base_poster_url}#{movie['backdrop_path']}",
       rating: movie['vote_average']
     )
   end
