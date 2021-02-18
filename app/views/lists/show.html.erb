@@ -1,5 +1,18 @@
 <div class="container py-5">
-  <h3><%= @list.name %> (<%= pluralize('movie', @list.movies.size) %>)</h3>
-  <% @list.movies.each do |movie| %>
+  <%= link_to lists_path do %>
+    <i class="fas fa-long-arrow-alt-left"></i> Back to all lists
   <% end %>
+  <h3><%= @list.name %> (<%= pluralize(@list.movies.size, 'movie') %>)</h3>
+  <div class="row">
+    <% @list.movies.each do |movie| %>
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="bg-white rounded shadow p-3">
+
+        </div>
+      </div>
+    <% end %>
+    <% if @list.movies.empty? %>
+      <em class="text-muted">Sorry your list is empty</em>
+    <% end %>
+  </div>
 </div>
