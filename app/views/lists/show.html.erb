@@ -2,17 +2,23 @@
   <%= link_to lists_path do %>
     <i class="fas fa-long-arrow-alt-left"></i> Back to all lists
   <% end %>
-  <h3><%= @list.name %> (<%= pluralize(@list.movies.size, 'movie') %>)</h3>
+  <div class="card-category card-large mb-5" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= @list.photo.attached? ? cl_image_path(@list.photo.key) : asset_path('list_background.jpg') %>)">
+    <h3><%= @list.name %> (<%= pluralize(@list.movies.size, 'movie') %>)</h3>
+  </div>
   <div class="row">
     <% @list.movies.each do |movie| %>
       <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="bg-white rounded shadow p-3">
-
+        <div class="bg-white rounded shadow">
+          <%= image_tag movie.poster_url, alt: movie.title, class: 'movie-img rounded-top' %>
+          <div class="p-3 rounded-bottom d-flex flex-column">
+            <strong><%= movie.title %> <span class="text-muted font-weight-normal">• <%= movie.rating %> <i class="fas fa-star"></i></span></strong>
+            <small class="text-muted"><%= movie.overview.truncate(100) %></small>
+          </div>
         </div>
       </div>
     <% end %>
-    <% if @list.movies.empty? %>
-      <em class="text-muted">Sorry your list is empty</em>
-    <% end %>
   </div>
+  <% if @list.movies.empty? %>
+    <small><em class="text-muted">Sorry your list is empty <%= link_to 'add a movie here', new_list_saved_movie_path(@list) %></em></small>
+  <% end %>
 </div>
