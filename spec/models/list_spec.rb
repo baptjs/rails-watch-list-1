@@ -7,6 +7,10 @@ RSpec.describe "List", :type => :model do
     }
   end
 
+  let(:titanic) do
+    Movie.create!(title: "Titanic", overview: "101-year-old Rose DeWitt Bukater tells the story of her life aboard the Titanic, 84 years later.")
+  end
+
   it "has a name" do
     list = List.new(name: "Comedy")
     expect(list.name).to eq("Comedy")
@@ -34,15 +38,13 @@ RSpec.describe "List", :type => :model do
     expect(list).to respond_to(:movies)
     expect(list.movies.count).to eq(0)
 
-    movie = Movie.create!(title: "Titanic", overview: "101-year-old Rose DeWitt Bukater tells the story of her life aboard the Titanic, 84 years later.")
-    list.saved_movies.create(list: list, movie: movie, comment: "Great movie!")
+    list.saved_movies.create(list: list, movie: titanic, comment: "Great movie!")
     expect(list.movies.count).to eq(1)
   end
 
   it "should destroy child saved movies when destroying self" do
-    movie = Movie.create!(title: "Titanic", overview: "101-year-old Rose DeWitt Bukater tells the story of her life aboard the Titanic, 84 years later.")
     list = List.create!(valid_attributes)
-    list.saved_movies.create(list: list, movie: movie, comment: "Great movie!")
+    list.saved_movies.create(list: list, movie: titanic, comment: "Great movie!")
     expect { list.destroy }.to change { SavedMovie.count }.from(1).to(0)
   end
 end
