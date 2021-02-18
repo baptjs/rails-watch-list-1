@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Saved Movie", :type => :model do
+RSpec.describe "Saved Movie", type: :model do
   let (:titanic) do
     Movie.create!(title: "Titanic", overview: "101-year-old Rose DeWitt Bukater tells the story of her life aboard the Titanic, 84 years later.")
   end

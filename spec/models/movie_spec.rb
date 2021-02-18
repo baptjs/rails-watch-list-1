@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Movie", :type => :model do
+RSpec.describe "Movie", type: :model do
   let(:valid_attributes) do
     {
       title: "Titanic",
