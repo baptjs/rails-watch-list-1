@@ -13,7 +13,7 @@
   <div class="row my-2">
     <% @list.movies.each do |movie| %>
       <% saved_movie = SavedMovie.find_by(list: @list, movie: movie) %>
-      <div class="col-12 col-sm-6">
+      <div class="col-12 col-sm-6" data-aos="zoom-in">
         <div class="bg-white rounded shadow">
           <%= image_tag movie.poster_url, alt: movie.title, class: 'movie-img rounded-top' %>
           <div class="p-3 rounded-bottom d-flex flex-column">
