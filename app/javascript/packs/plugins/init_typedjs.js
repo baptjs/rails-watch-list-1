@@ -11,6 +11,6 @@ const initTyped = () => {
       showCursor: false
     });
   }
-}
+};
 
 export { initTyped };
