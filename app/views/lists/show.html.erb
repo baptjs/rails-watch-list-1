@@ -4,7 +4,7 @@
   </div>
     <span class="movie-tag"><%= pluralize(@list.movies.size, 'movie') %></span>
 </div>
-<div class="container">
+<div class="container mb-5">
   <span class="mb-2 d-block"><small><em class="text-muted"><%= "You haven't saved a movie yet!" if @list.movies.empty? %></em></small></span>
   <div class="d-flex justify-content-end my-4">
     <button type="button" class="btn btn-flat" data-toggle="modal" data-target="#new_movie_modal">
@@ -14,7 +14,7 @@
   <div class="row my-2">
     <% @list.movies.each do |movie| %>
       <% saved_movie = SavedMovie.find_by(list: @list, movie: movie) %>
-      <div class="col-12 col-sm-6" data-aos="zoom-in">
+      <div class="col-12 col-sm-6 mb-4" data-aos="zoom-in">
         <div class="bg-white rounded shadow h-100">
           <%= image_tag movie.poster_url, alt: movie.title, class: 'movie-img rounded-top' %>
           <div class="p-3 rounded-bottom d-flex flex-column">
@@ -31,7 +31,7 @@
       </div>
     <% end %>
   </div>
-  <hr>
+  <hr class="my-5">
   <h3>Reviews</h3>
   <div class="row">
     <div class="col-12 col-sm-6">

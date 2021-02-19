@@ -10,12 +10,12 @@
       <div class="modal-body">
         <%= simple_form_for [@list, @saved_movie] do |f| %>
           <%= f.input :comment, placeholder: 'Enter a comment about the movie' %>
-          <%= f.association :movie, class: 'select2', prompt: 'Select a movie' %>
+          <%= f.association :movie, input_html: { class: 'select2' }, prompt: 'Select a movie' %>
       </div>
       <div class="modal-footer">
           <%= f.submit 'Add movie', class: 'btn btn-flat' %>
         <% end %>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
+        <button type="button" class="btn btn-cancel" data-dismiss="modal">Back</button>
       </div>
     </div>
   </div>
