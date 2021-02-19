@@ -1,13 +1,15 @@
 class SavedMoviesController < ApplicationController
   before_action :set_saved_movie, only: :destroy
-  before_action :set_list, only: :create
+  before_action :set_list, only: [:new, :create]
+
+  def new
+    @saved_movie = SavedMovie.new
+  end
 
   def create
     @saved_movie = SavedMovie.new(saved_movie_params)
     @saved_movie.list = @list
-    unless @saved_movie.save
-      flash[:notice] = @saved_movie.errors.full_messages.to_sentence
-    end
+    flash[:notice] = @saved_movie.errors.full_messages.to_sentence unless @saved_movie.save
     redirect_to list_path(@list)
   end
 

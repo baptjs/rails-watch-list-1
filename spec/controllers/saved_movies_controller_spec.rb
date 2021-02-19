@@ -53,9 +53,9 @@ if defined?(SavedMoviesController)
           expect(assigns(:saved_movie)).to be_a_new(SavedMovie)
         end
 
-        it "re-renders the 'new' template" do
+        it "re-renders the 'new' template or 'lists/show'" do
           post :create, params: invalid_attributes
-          expect(response).to render_template("new")
+          expect(response).to render_template('new').or redirect_to(@list)
         end
       end
     end
