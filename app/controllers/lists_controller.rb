@@ -6,6 +6,7 @@ class ListsController < ApplicationController
   end
 
   def show
+    @saved_movie = SavedMovie.new
     @review = Review.new(list: @list)
   end
 
