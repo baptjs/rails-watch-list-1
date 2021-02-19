@@ -1,19 +1,24 @@
 <div class="container py-5">
   <%= link_to lists_path do %>
-    <i class="fas fa-long-arrow-alt-left"></i> Back to all lists
+    <i class="fas fa-long-arrow-alt-left pb-2"></i> Back to all lists
   <% end %>
-  <div class="card-category card-large mb-5" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= @list.photo.attached? ? cl_image_path(@list.photo.key) : asset_path('list_background.jpg') %>)">
-    <h3><%= @list.name %> - <%= pluralize(@list.movies.size, 'movie') %></h3>
+  <div class="position-relative">
+    <div class="card-category card-large mb-5" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= @list.photo.attached? ? cl_image_path(@list.photo.key) : asset_path('list_background.jpg') %>)">
+      <h3><%= @list.name %></h3>
+    </div>
+    <span class="movie-tag"><%= pluralize(@list.movies.size, 'movie') %></span>
   </div>
-  <span class="mb-3 d-block"><small><em class="text-muted"><%= 'Sorry your list is empty' if @list.movies.empty? %></em></small> <%= link_to 'add a movie here', new_list_saved_movie_path(@list), class: 'btn btn-flat' %></span>
-  <div class="row">
+  <span class="mb-2 d-block"><small><em class="text-muted"><%= "You haven't saved a movie yet!" if @list.movies.empty? %></em></small></span>
+  <%= link_to 'add a movie here', new_list_saved_movie_path(@list), class: 'btn btn-flat' %>
+  <div class="row my-2">
     <% @list.movies.each do |movie| %>
-      <div class="col-12 col-sm-6 col-md-4">
+      <div class="col-12 col-sm-6 col-md-4 col-lg-6">
         <div class="bg-white rounded shadow">
           <%= image_tag movie.poster_url, alt: movie.title, class: 'movie-img rounded-top' %>
           <div class="p-3 rounded-bottom d-flex flex-column">
             <strong><%= movie.title %> <span class="text-muted font-weight-normal">• <%= movie.rating %> <i class="fas fa-star"></i></span></strong>
-            <small class="text-muted"><%= movie.overview.truncate(100) %></small>
+            <small class="text-muted"><%= movie.overview %></small>
+            <small class="py-2"><%= SavedMovie.find_by(list: @list, movie: movie).comment %></small>
             <small class="text-right"><%= link_to 'delete', saved_movie_path(SavedMovie.find_by(list: @list, movie: movie)), method: :delete, data: { confirm: "Are you sure you want to remove #{movie.title} from your #{@list.name} list"}, class: 'text-danger' %></small>
           </div>
         </div>
