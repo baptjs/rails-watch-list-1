@@ -14,11 +14,11 @@
   <div class="row my-2">
     <% @list.movies.each do |movie| %>
       <% saved_movie = SavedMovie.find_by(list: @list, movie: movie) %>
-      <div class="col-12 col-sm-6">
+      <div class="col-12 col-sm-6" data-aos="zoom-in">
         <div class="bg-white rounded shadow h-100">
           <%= image_tag movie.poster_url, alt: movie.title, class: 'movie-img rounded-top' %>
           <div class="p-3 rounded-bottom d-flex flex-column">
-            <strong><%= movie.title %> <span class="text-muted font-weight-normal">• <%= movie.rating %> <i class="fas fa-star"></i></span></strong>
+            <strong><%= movie.title %> <span class="text-muted font-weight-normal">• <%= movie.rating %> <i class="fas fa-star star-yellow"></i></span></strong>
             <small class="text-muted"><%= movie.overview %></small>
             <div class="d-flex align-items-end justify-content-between pt-4">
               <div>
@@ -30,6 +30,34 @@
         </div>
       </div>
     <% end %>
+  </div>
+  <hr>
+  <h3>Reviews</h3>
+  <div class="row">
+    <div class="col-12 col-sm-6">
+      <% if @list.reviews.empty? %>
+        <small><em class="text-muted">Be the first one to review this list</em></small>
+      <% end %>
+      <% @list.reviews.each do |review| %>
+        <div class="bg-white rounded-lg shadow mb-3 p-3">
+          <% review.rating.times do %>
+            <i class="fas fa-star star-yellow"></i>
+          <% end %>
+          <small><em class="text-muted"><%= distance_of_time_in_words_to_now(review.created_at) %> ago</em></small>
+          <p class="mb-0"><%= review.comment %></p>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-12 col-sm-6">
+      <div class="bg-white rounded shadow p-3">
+        <h5>Add your review</h5>
+        <%= simple_form_for [@list, @review] do |f| %>
+          <%= f.input :comment, placeholder: 'Add your review here...' %>
+          <%= f.input :rating, as: :select, collection: (1..5), required: true, prompt: "What's your rating", input_html: { id: 'review_rating' } %>
+          <%= f.submit class:'btn btn-flat' %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
 <%= render 'saved_movies/new', list: @list %>

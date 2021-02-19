@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root to: 'lists#index'
   resources :lists, except: [:edit, :update] do
     resources :saved_movies, only: [:new, :create]
+    resources :reviews, only: :create
   end
   resources :saved_movies, only: :destroy
+  resources :reviews, only: :destroy
 end
