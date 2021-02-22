@@ -13,7 +13,7 @@
   </div>
   <div class="row my-2">
     <% @list.movies.each do |movie| %>
-      <% saved_movie = SavedMovie.find_by(list: @list, movie: movie) %>
+      <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
       <div class="col-12 col-sm-6 mb-4" data-aos="zoom-in">
         <div class="bg-white rounded shadow h-100">
           <%= image_tag movie.poster_url, alt: movie.title, class: 'movie-img rounded-top' %>
@@ -22,9 +22,9 @@
             <small class="text-muted"><%= movie.overview %></small>
             <div class="d-flex align-items-end justify-content-between pt-4">
               <div>
-                <i class="fas fa-quote-left mr-2"></i><small class="flex-grow-1"><%= saved_movie.comment %></small>
+                <i class="fas fa-quote-left mr-2"></i><small class="flex-grow-1"><%= bookmark.comment %></small>
               </div>
-              <small class="text-right flex-shrink-0"><%= link_to 'delete', saved_movie_path(saved_movie), method: :delete, data: { confirm: "Are you sure you want to remove #{movie.title} from your #{@list.name} list"}, class: 'text-danger' %></small>
+              <small class="text-right flex-shrink-0"><%= link_to 'delete', bookmark_path(bookmark), method: :delete, data: { confirm: "Are you sure you want to remove #{movie.title} from your #{@list.name} list"}, class: 'text-danger' %></small>
             </div>
           </div>
         </div>
@@ -61,4 +61,4 @@
     </div>
   </div>
 </div>
-<%= render 'saved_movies/new', list: @list %>
+<%= render 'bookmarks/new', list: @list %>
