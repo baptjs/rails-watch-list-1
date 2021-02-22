@@ -8,7 +8,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <%= simple_form_for [@list, @saved_movie] do |f| %>
+        <%= simple_form_for [@list, @bookmark] do |f| %>
           <%= f.input :comment, placeholder: 'Enter a comment about the movie' %>
           <%= f.association :movie, input_html: { class: 'select2' }, prompt: 'Select a movie' %>
       </div>
