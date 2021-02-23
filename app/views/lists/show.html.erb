@@ -1,5 +1,5 @@
 <div class="position-relative">
-  <div class="card-category card-large" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= @list.photo.attached? ? cl_image_path(@list.photo.key) : asset_path('list_background.jpg') %>)">
+  <div class="card-category card-large" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= asset_path('list_background.jpg') %>)">
     <h1><%= @list.name %></h1>
   </div>
     <span class="movie-tag"><%= pluralize(@list.movies.size, 'movie') %></span>
@@ -7,9 +7,7 @@
 <div class="container mb-5">
   <div class="d-flex justify-content-between my-4">
     <span class="mb-2 d-block"><small><em class="text-muted"><%= "You haven't saved any movies yet!" if @list.movies.empty? %></em></small></span>
-    <button type="button" class="btn btn-flat" data-toggle="modal" data-target="#new_movie_modal">
-      add a movie
-    </button>
+    <%= link_to 'add a movie', new_list_bookmark_path(@list), class: 'btn btn-flat' %>
   </div>
   <div class="row my-2">
     <% @list.movies.each do |movie| %>
@@ -61,4 +59,3 @@
     </div>
   </div>
 </div>
-<%= render 'bookmarks/new', list: @list %>
